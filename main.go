@@ -1,6 +1,7 @@
 package main
 
 import (
+	"mygram/controllers"
 	"mygram/initializers"
 
 	"github.com/gin-gonic/gin"
@@ -21,6 +22,6 @@ func main() {
 			"message": "Hello World",
 		})
 	})
-
+	r.POST("/register", controllers.Register)
 	r.Run()
 }
