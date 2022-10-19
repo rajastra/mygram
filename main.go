@@ -22,6 +22,8 @@ func main() {
 			"message": "Hello World",
 		})
 	})
-	r.POST("/register", controllers.Register)
+	r.POST("/users/register", controllers.Register)
+	r.POST("/users/login", controllers.Login)
+
 	r.Run()
 }
