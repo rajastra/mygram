@@ -8,4 +8,5 @@ type User struct {
 	Email string `gorm:"unique;not null;type:varchar(100)"`
 	Password string `gorm:"not null"`
 	Age int `gorm:"not null;default:18;check:age>8"`
+	Photos []Photo `gorm:"foreignKey:UserRefer"`
 }

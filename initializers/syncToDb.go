@@ -3,5 +3,5 @@ package initializers
 import "mygram/models"
 
 func SyncToDb() {
-	DB.AutoMigrate(&models.User{})
+	DB.AutoMigrate(&models.User{}, &models.Photo{})
 }
