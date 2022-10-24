@@ -39,3 +39,21 @@ func CreatePhotos(c *gin.Context){
 	})
 
 }
+
+func GetPhotos(c *gin.Context){
+	var photos []models.Photo
+	result := initializers.DB.Find(&photos)
+	if result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"message": "failed to get photos",
+		})
+		return
+	}
+	for _, photo := range photos {
+		initializers.DB.Model(&photo).Association("User").Find(&photo.UserRefer)
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": photos,
+	})
+}

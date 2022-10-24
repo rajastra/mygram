@@ -23,9 +23,14 @@ func main() {
 			"message": "Hello World",
 		})
 	})
+	// user
 	r.POST("/users/register", controllers.Register)
 	r.POST("/users/login", controllers.Login)
+	r.PUT("/users", middleware.RequireAuth, controllers.UpdateUser)
+	r.DELETE("/users", middleware.RequireAuth, controllers.DeleteUser)
 	r.GET("/validate", middleware.RequireAuth, controllers.Validate)
+	// photo
 	r.POST("/photos", middleware.RequireAuth, controllers.CreatePhotos)
+	r.GET("/photos", middleware.RequireAuth , controllers.GetPhotos)
 	r.Run()
 }

@@ -106,6 +106,52 @@ func Login(c *gin.Context){
 
 }
 
+func UpdateUser(c *gin.Context){
+	// get user id from token
+	userT, _ := c.Get("user")
+	user_id := userT.(models.User).ID
+	var user models.User
+	initializers.DB.First(&user, user_id)
+
+	var Body struct {
+		Username string
+		Email string
+	}
+	c.Bind(&Body)
+
+	if Body.Username != ""{
+		user.Username = Body.Username
+	}
+	if Body.Email != ""{
+		user.Email = Body.Email
+	}
+
+	initializers.DB.Save(&user)
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "user updated",
+		"user": user,
+	})
+
+}
+
+func DeleteUser(c *gin.Context){
+	// get user id from token
+	userT, _ := c.Get("user")
+	user_id := userT.(models.User).ID
+	var user models.User
+	initializers.DB.First(&user, user_id)
+
+	initializers.DB.Delete(&user)
+
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "user deleted",
+	})
+}
+
+
+
 func Validate(c *gin.Context){
 	user, _ := c.Get("user")
 
